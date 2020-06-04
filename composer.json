@@ -1,0 +1,17 @@
+{
+    "name": "underdog1987/simple-curl",
+    "description": "A Basic PHP cURL client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guillermo Hernandez",
+            "email": "underdog1987@yandex.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Underdog1987\\SimpleCURL\\": "src/"
+        }
+    }
+}
