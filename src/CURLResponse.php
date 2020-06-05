@@ -262,4 +262,24 @@ class CURLResponse{
 		return $this->response_body;
 	}
 
+	public function getResponseHeaders(){
+		$ret = Array();
+		$headers = nl2br($this->response_headers);
+		$arHeaders=explode('<br />',$headers);
+		$c=1;
+		foreach($arHeaders as $header){
+			if($c>1){
+				$header=trim($header);
+				if(strlen($header) > 0){
+					list($headerName,$headerValue) = explode(':',$header,2);
+					$headerName = trim($headerName);
+					$headerValue = trim($headerValue);
+					$ret[$headerName] = $headerValue;
+				}
+			}
+			$c++;
+		}
+		return (Object)$ret;
+	}
+
 }

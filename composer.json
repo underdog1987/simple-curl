@@ -5,10 +5,13 @@
     "authors": [
         {
             "name": "Guillermo Hernandez",
-            "email": "underdog1987@yandex.ru"
+            "homepage": "https://underdog1987.keybase.pub",
+            "role":"Developer"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.2"
+    },
     "autoload": {
         "psr-4": {
             "Underdog1987\\SimpleCURL\\": "src/"

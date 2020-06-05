@@ -261,7 +261,7 @@ final class SimpleCURL{
 		}else{
 			curl_setopt($this->cURL_executor, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($this->cURL_executor, CURLOPT_VERBOSE, FALSE);
-			curl_setopt($this->cURL_executor, CURLOPT_HEADER, FALSE);
+			curl_setopt($this->cURL_executor, CURLOPT_HEADER, TRUE);
 			curl_setopt($this->cURL_executor, CURLOPT_CONNECTTIMEOUT, 10); 
 			curl_setopt($this->cURL_executor, CURLOPT_TIMEOUT, 28);
 
@@ -332,7 +332,8 @@ final class SimpleCURL{
             }
             // Create CURLResponse
             $responseInfo = curl_getinfo($this->cURL_executor);
-            $responseInfo['response_body'] = $ret;
+            $responseInfo['response_body'] = substr($ret,$responseInfo['header_size']);
+            $responseInfo['response_headers'] = substr($ret,0,$responseInfo['header_size']);
             $_ret = CURLResponse::createWith($responseInfo);
 
 		}else{
