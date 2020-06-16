@@ -274,7 +274,7 @@ final class SimpleCURL{
 				curl_setopt($this->cURL_executor, CURLOPT_URL, $this->url . $this->data);
 			}else{ 
 				curl_setopt($this->cURL_executor, CURLOPT_URL, $this->url);
-				curl_setopt($this->cURL_executor, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($this->cURL_executor, CURLOPT_CUSTOMREQUEST, $this->method);
 				curl_setopt($this->cURL_executor, CURLOPT_POSTFIELDS, $this->data);
 				if(is_string($this->data)){
 					$this->addHeader(['name' => 'Content-Length', 'value' => strlen($this->data)]);
