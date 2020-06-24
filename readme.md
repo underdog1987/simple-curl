@@ -65,12 +65,14 @@ print_r($result->getResponseBody()); // Response Body
 By default, `SimpleCURL` request method is set to POST.
 
 ### Simple POST request (json)
-To send JSON as request body, just change the content of `setData()` as described below:
+To send JSON as request body, just change the content of `setData()` and add header `Content-Type: application/json` as described below:
 
 ```php
 $client->setData('{"name":"Jhon", "surname":"Doe"}');
-
+$client->addHeader(['name' => 'Content-Type', 'value' => 'appication/json']);
 ```
+
+
 
 
 
