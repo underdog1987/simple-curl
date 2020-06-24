@@ -29,7 +29,7 @@ This example shows how to make a simple request to Google.
 
 ```php
 if(!SimpleCURL::isRunnable()){
-   abort(500, 'cURL extension is not loaded');
+   die('cURL extension is not loaded');
 }
 $client = new SimpleCURL();
 $client->isGet();
@@ -50,7 +50,7 @@ This example shows how to make a simple POST request.
 
 ```php
 if(!SimpleCURL::isRunnable()){
-   abort(500, 'cURL extension is not loaded');
+   die('cURL extension is not loaded');
 }
 $client = new SimpleCURL();
 $client->setData('name=John&surname=Doe');
@@ -65,7 +65,7 @@ print_r($result->getResponseBody()); // Response Body
 By default, `SimpleCURL` request method is set to POST.
 
 ### Simple POST request (json)
-To send JSON as request body, just change the content of `setData()` as described below:  .
+To send JSON as request body, just change the content of `setData()` as described below:
 
 ```php
 $client->setData('{"name":"Jhon", "surname":"Doe"}');
