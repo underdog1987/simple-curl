@@ -153,7 +153,7 @@ final class SimpleCURL{
     }
     
     /**
-     * Set request methos to DELETE.
+     * Set request method to DELETE.
      *
      * @return void
      */
