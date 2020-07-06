@@ -11,7 +11,7 @@ SimpleCURL is a basic cURL client that can be used to consume REST services expo
 ## Install
 Add SimpleCURL to your project vía composer
 
-`composer require Underdog1987/SimpleCURL`
+`composer require underdog1987/simple-curl`
 
 ## Basic Usage
 
