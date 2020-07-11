@@ -11,8 +11,8 @@ if(SimpleCURL::isRunnable()){
     $client->ignoreCerts(TRUE);
     $client->prepare();
     $result = $client->execute();
-    var_dump($result->getHttpCode());
-    var_dump($result->getResponseHeaders());
+    //var_dump($result->getHttpCode());
+    //var_dump($result->getResponseHeaders(TRUE));
     var_dump($result->getResponseBody());
 }else{
     die("cURL extension is not enabled");

@@ -19,7 +19,7 @@ Add SimpleCURL to your project vía composer
 To import SimpleCURL class use
 
 ```php
-use Underdog1987\SimpleCURL\SimpleCURL
+use Underdog1987\SimpleCURL\SimpleCURL;
 ```
 
 Linux systems are case-sensitive, that means, `SimpleCurl` and `SimpleCURL` are different class names. Be carreful.
@@ -71,7 +71,8 @@ To send JSON as request body, just change the content of `setData()` and add hea
 $client->setData('{"name":"Jhon", "surname":"Doe"}');
 $client->addHeader(['name' => 'Content-Type', 'value' => 'appication/json']);
 ```
-
+### Full documentation (WPI)
+https://underdog1987.keybase.pub/projects/simple-curl
 
 
 

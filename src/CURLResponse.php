@@ -87,12 +87,6 @@ class CURLResponse{
 		return $this->filetime;
 	}
 
-
-	// public function getSslVerifyResult(){
-	// 	return $this->ssl_verify_result;
-	// }
-
-
 	public function getRedirectCount(){
 		return $this->redirect_count;
 	}
@@ -230,11 +224,22 @@ class CURLResponse{
 		return $this->total_time_us;
 	}
 
-	public function getResponseBody(){
+	/**
+	 * Get Response Body
+	 * 
+	 * @return String
+	 */
+	public function getResponseBody():String{
 		return $this->response_body;
 	}
 
-	public function getResponseHeaders(){
+	/**
+	 * Get Response Headers
+	 * 
+	 * @param bool $asArray = FALSE
+	 * @return Object/Array
+	 */
+	public function getResponseHeaders($asArray = FALSE){
 		$ret = Array();
 		$headers = nl2br($this->response_headers);
 		$arHeaders=explode('<br />',$headers);
@@ -251,7 +256,8 @@ class CURLResponse{
 			}
 			$c++;
 		}
-		return (Object)$ret;
+		$oRet = (Object)$ret;
+		return $asArray?get_object_vars($oRet):$oRet;
 	}
 
 }

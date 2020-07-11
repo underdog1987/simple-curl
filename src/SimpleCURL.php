@@ -94,6 +94,27 @@ final class SimpleCURL{
      * @var bool
      */
     private $useAuthBasic;
+
+    /**
+     * Set timeout for excecution.
+     *
+     * @var int
+     */
+    private $timeout = 28;
+
+    /**
+     * Set timeout for connection (seconds).
+     *
+     * @var int
+     */
+    private $cTimeout = 10;
+
+    /**
+     * Determine if cURL follow redirects.
+     *
+     * @var int
+     */
+    private $follow = TRUE;
     
     /**
      * Creates a new SimpleCURL instance.
@@ -191,7 +212,37 @@ final class SimpleCURL{
      */
     public function setCaInfo(String $cainf){
 		$this->caInfo = $cainf;
-	}
+    }
+    
+    /**
+     * Set connection timeout
+     *
+     * @param int $seconds
+     * @return void
+     */
+    public function setConnectionTimeout(int $seconds){
+        $this->cTimeout = $seconds;
+    }
+
+    /**
+     * Set execution timeout
+     *
+     * @param int $seconds
+     * @return void
+     */
+    public function setTimeout(int $seconds){
+        $this->timeout = $seconds;
+    }
+
+    /**
+     * Set if curl if following redirects
+     *
+     * @param bool $g
+     * @return void
+     */
+    public function followRedirects(bool $f){
+        $this->follow = $f;
+    }
 
     /**
      * Add custom header to request.
@@ -262,8 +313,9 @@ final class SimpleCURL{
 			curl_setopt($this->cURL_executor, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($this->cURL_executor, CURLOPT_VERBOSE, FALSE);
 			curl_setopt($this->cURL_executor, CURLOPT_HEADER, TRUE);
-			curl_setopt($this->cURL_executor, CURLOPT_CONNECTTIMEOUT, 10); 
-			curl_setopt($this->cURL_executor, CURLOPT_TIMEOUT, 28);
+			curl_setopt($this->cURL_executor, CURLOPT_CONNECTTIMEOUT, $this->cTimeout);
+            curl_setopt($this->cURL_executor, CURLOPT_TIMEOUT, $this->timeout);
+            curl_setopt($this->cURL_executor, CURLOPT_FOLLOWLOCATION, $this->follow);
 
 			// Validate Method
 			if($this->method == 'GET'){
