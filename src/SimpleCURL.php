@@ -423,6 +423,15 @@ final class SimpleCURL{
                 "useAuthBasic":"'.$this->useAuthBasic.'"
             }
         }';
+    }
+    
+    /**
+     * Display SimpleCURL as String
+     *
+     * @return String
+     */
+	public function getCurlInfo(){
+        return print_r(curl_getinfo($this->cURL_executor),FALSE);
 	}
 
     /**
@@ -433,6 +442,16 @@ final class SimpleCURL{
      */
 	public function setData($strData){
 		$this->data=$strData;
+    }
+    
+    /**
+     * Get raw data to send in request
+     *
+     * @param 
+     * @return String
+     */
+	public function getData(){
+		return $this->data;
 	}
 
 

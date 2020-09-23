@@ -71,7 +71,7 @@ To send JSON as request body, just change the content of `setData()` and add hea
 $client->setData('{"name":"Jhon", "surname":"Doe"}');
 $client->addHeader(['name' => 'Content-Type', 'value' => 'appication/json']);
 ```
-### Full documentation (WPI)
+### Full documentation (WIP)
 https://underdog1987.keybase.pub/projects/simple-curl
 
 
