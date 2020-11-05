@@ -2,12 +2,14 @@
 
 namespace Underdog1987\SimpleCURL;
 
+use Underdog1987\SimpleCURL\Exceptions\SimpleCURLException;
+
 final class SimpleCURL{
 
     /**
      * User-Agent used by default on each request.
      *
-     * String
+     * @const String
      */
     public const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) Underdog1987/PHP Simple cURL Client';
 
@@ -235,7 +237,7 @@ final class SimpleCURL{
     }
 
     /**
-     * Set if curl if following redirects
+     * Set if curl is following redirects
      *
      * @param bool $g
      * @return void
@@ -253,12 +255,12 @@ final class SimpleCURL{
     public function addHeader(Array $header){
 		if(is_array($header) && isset($header['name'], $header['value'])){
 			if(strlen(trim($header['name'])) == 0 || strlen(trim($header['value'])) == 0 ){
-				throw new \Exception('Cannot add header without name or value');
+				throw new SimpleCURLException('Cannot add header without name or value');
 			}else{
 				$this->headers[]=$header;
 			}
 		}else{
-			throw new \Exception('Array format is not correct. Must use ["name" => $headerName, "value"=>$headerValue]');
+			throw new SimpleCURLException('Array format is not correct. Must use ["name" => $headerName, "value"=>$headerValue]');
 		}
 	}
 
@@ -271,12 +273,12 @@ final class SimpleCURL{
     public function addCookie(Array $cookie){
 		if(is_array($cookie) && isset($cookie['name'], $cookie['value'])){
 			if(strlen(trim($cookie['name'])) == 0 || strlen(trim($cookie['value'])) == 0 ){
-				throw new \Exception('Cannot add cookie without name or value');
+				throw new SimpleCURLException('Cannot add cookie without name or value');
 			}else{
 				$this->cookies[]=$cookie;
 			}
 		}else{
-			throw new \Exception('Array format is not correct. Must use ["name" => $cookieName, "value"=>$cookieValue]');
+			throw new SimpleCURLException('Array format is not correct. Must use ["name" => $cookieName, "value"=>$cookieValue]');
 		}
     }
 
@@ -288,10 +290,10 @@ final class SimpleCURL{
 	public function prepare(){
 		// Validate URL
 		if(strlen(trim($this->url))==0 ){
-			throw new \Exception ('URL is required to execute cURL');
+			throw new SimpleCURLException ('URL is required to execute cURL');
 		}else{
 			if (!(filter_var($this->url, FILTER_VALIDATE_URL))) {
-				throw new \Exception ($this->url. 'is not valid URL');
+				throw new SimpleCURLException ($this->url. 'is not valid URL');
 			}
 		}
 		// Attach certificate on SSL request
@@ -300,7 +302,7 @@ final class SimpleCURL{
                 if($this->ignoreCerts){
                     curl_setopt($this->cURL_executor, CURLOPT_SSL_VERIFYPEER, FALSE);
                 }else{
-                    throw new \Exception('CA Info value is not set. This value is required when using HTTPS');
+                    throw new SimpleCURLException('CA Info value is not set. This value is required when using HTTPS');
                 }
 			}else{
 				curl_setopt ($this->cURL_executor, CURLOPT_CAINFO, $this->caInfo);
@@ -308,7 +310,7 @@ final class SimpleCURL{
 		}
 		// Check if cURL is initialized
 		if(FALSE===$this->cURL_executor){
-			throw new \Exception('No se pudo iniciar cURL. '.curl_error($this->cURL_executor));
+			throw new SimpleCURLException('cURL is not initialized: '.curl_error($this->cURL_executor));
 		}else{
 			curl_setopt($this->cURL_executor, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($this->cURL_executor, CURLOPT_VERBOSE, FALSE);
@@ -356,7 +358,7 @@ final class SimpleCURL{
 			if(isset($this->authBasicData['username']) && isset($this->authBasicData['password'])){
 				curl_setopt($this->cURL_executor, CURLOPT_USERPWD, $this->authBasicData['username'] . ":" . $this->authBasicData['password']);
 			}else{
-				throw new \Exception ('Se debe especificar usuario y contraseña de Basic Auth');
+				throw new SimpleCURLException ('Basic Auth user and password must be specified');
 			}
 		}
 		$this->isPrepared = TRUE;
@@ -380,7 +382,7 @@ final class SimpleCURL{
 		if($this->isPrepared()){
 			$ret = curl_exec($this->cURL_executor);
 			if($ret  === FALSE){
-                throw new \Exception('cURL failed with error: '.curl_error($this->cURL_executor));
+                throw new SimpleCURLException('cURL failed with error: '.curl_error($this->cURL_executor));
             }
             // Create CURLResponse
             $responseInfo = curl_getinfo($this->cURL_executor);
@@ -389,7 +391,7 @@ final class SimpleCURL{
             $_ret = CURLResponse::createWith($responseInfo);
 
 		}else{
-			throw new \Exception("Don't call execute() before prepare()");
+			throw new SimpleCURLException("Don't call execute() before prepare()");
         }
         
 		return $_ret;
